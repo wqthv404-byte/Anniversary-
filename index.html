@@ -207,8 +207,7 @@
         <button onclick="startExperience()">Open Story 💖</button>
     </div>
 
-    <div class="page" id="p2">
-        <div class="heart-container"><div class="heart"></div></div>
+     <div class="page" id="p2">
   <h2 class="glow">Beautiful Memories 📸</h2>
   
   <div class="slider-container">
@@ -220,13 +219,9 @@
   </div>
 
   <p>Every picture tells a story of love.</p>
-  
-        </div>
-        
-        <h2 class="glow">Your story is beautiful and inspiring. May it continue to shine brightly. Happy Anniversary!"</h2>
-        <p>..."Happy Anniversary to the most wonderful couple! Your love is an inspiration to us all"....</p>
-        <button onclick="showPage(3)">Continue ➡</button>
-    </div>
+  <button onclick="next(2)">Next ➡</button>
+     </div>
+    
 
     <div class="page" id="p3">
         <h1 class="glow">Happy Anniversary!</h1>
@@ -256,7 +251,7 @@
             document.getElementById('p' + pageNumber).classList.add('active');
 
             if(pageNumber === 3) {
-                typeEffect("your partnership reflects mutual respect, understanding, and commitment. your relationship demonstrates how care and dedication strengthen bonds over time. May your journey continue with harmony, happiness, and shared successes.", "typingText");
+                typeEffect("your partnership reflects mutual respect, understanding, and commitment. your relationship demonstrates how care and dedication strengthen bonds over time. May your journey continue with harmony, happiness, and shared successes.Your story is beautiful and inspiring. May it continue to shine brightly. ", "typingText");
             }
         }
 
