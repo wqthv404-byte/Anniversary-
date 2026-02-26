@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anniversary 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  overflow:hidden;
+  text-align:center;
+  cursor:none;
+  background:black; /* basic fix background */
+  color:white;
+}
+
+/* Gradient animation */
+body{
+  background: linear-gradient(-45deg,#0d0d0d,#1a001f,#330033,#000);
+  background-size:400% 400%;
+  animation:bg 12s ease infinite;
+}
+@keyframes bg{
+  0%{background-position:0%}
+  50%{background-position:100%}
+  100%{background-position:0%}
+}
+
+/* Pages */
+.page{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  opacity:0;
+  transition:1s;
+  padding:20px;
+}
+.active{opacity:1;}
+
+/* Glow text */
+.glow{
+  text-shadow:0 0 10px pink,0 0 30px hotpink;
+}
+
+/* Names animation */
+.names{
+  font-size:28px;
+  animation:fade 2s infinite alternate;
+}
+@keyframes fade{
+  from{opacity:0.6}
+  to{opacity:1}
+}
+
+/* Heart */
+.heart{
+  width:120px;
+  height:120px;
+  background:#ff4d6d;
+  transform:rotate(-45deg);
+  animation:beat 1s infinite;
+  margin:20px;
+}
+.heart:before,.heart:after{
+  content:'';
+  position:absolute;
+  width:120px;
+  height:120px;
+  background:#ff4d6d;
+  border-radius:50%;
+}
+.heart:before{top:-60px;}
+.heart:after{left:60px;}
+@keyframes beat{
+  0%,100%{transform:scale(1) rotate(-45deg);}
+  50%{transform:scale(1.15) rotate(-45deg);}
+}
+
+/* Cursor */
+.cursor{
+  position:fixed;
+  width:15px;
+  height:15px;
+  background:pink;
+  border-radius:50%;
+  pointer-events:none;
+  box-shadow:0 0 15px pink;
+}
+
+/* Typing message */
+.typing{
+  font-size:22px;
+  color:#ff66aa;
+  border-right:2px solid #ff66aa;
+  white-space:nowrap;
+  overflow:hidden;
+  margin-top:20px;
+}
+
+/* Fireworks */
+.fire{
+  position:fixed;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:white;
+  animation:boom 1s forwards;
+}
+@keyframes boom{
+  to{
+    transform:translate(var(--x),var(--y));
+    opacity:0;
+  }
+}
+
+/* Small floating hearts */
+.sheart{
+  position:absolute;
+  width:15px;
+  height:15px;
+  background:#ff66aa;
+  transform:rotate(-45deg);
+  border-radius:50%;
+  animation:slowheart linear infinite;
+}
+@keyframes slowheart{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-100vh);}
+}
+
+/* Mobile font */
+@media(max-width:500px){
+  h1{font-size:24px;}
+  h2{font-size:18px;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <h1 class="names glow">Aan ❤️ Esha</h1>
+  <p class="glow">A love written by destiny ✨</p>
+  <button id="startBtn">Tap to Start 💖</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="heart"></div>
+  <h2 class="glow">Two souls, one heart 💖</h2>
+  <button onclick="next(2)">Next ➡</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <div class="heart"></div>
+  <h2 class="glow">Happy Anniversary 💕</h2>
+  <p class="typing" id="typing"></p>
+  <button onclick="celebrate()">Celebrate 🎆</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1 class="glow">Forever together 💕</h1>
+</div>
+
+<script>
+/* Cursor glow */
+const c=document.getElementById("cursor");
+document.addEventListener("mousemove",(e)=>{
+  c.style.left=e.clientX+"px";
+  c.style.top=e.clientY+"px";
+});
+
+/* Page navigation */
+function next(n){
+  document.getElementById("p"+n).classList.remove("active");
+  document.getElementById("p"+(n+1)).classList.add("active");
+}
+
+/* Typing message */
+function typeMsg(text,id){
+  let i=0;
+  let el=document.getElementById(id);
+  el.textContent="";
+  let t=setInterval(()=>{
+    if(i<text.length){
+      el.textContent+=text[i];
+      i++;
+    } else clearInterval(t);
+  },120);
+}
+
+/* Fireworks */
+function fireworks(){
+  for(let i=0;i<25;i++){
+    const f=document.createElement("div");
+    f.className="fire";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    f.style.setProperty('--x',(Math.random()*200-100)+'px');
+    f.style.setProperty('--y',(Math.random()*200-100)+'px');
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  }
+}
+
+/* Small hearts animation */
+function smallHearts(){
+  for(let i=0;i<15;i++){
+    const h=document.createElement("div");
+    h.className="sheart";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top=Math.random()*100+"vh";
+    h.style.width=(Math.random()*10+10)+"px";
+    h.style.height=h.style.width;
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  }
+  setTimeout(smallHearts,2000);
+}
+
+/* Celebrate page */
+function celebrate(){
+  fireworks();
+  smallHearts();
+  typeMsg("Happy Anniversary Aan & Esha 💖", "typing");
+  setInterval(fireworks,800);
+  document.getElementById("p3").classList.remove("active");
+  document.getElementById("p4").classList.add("active");
+}
+
+/* Start button + music */
+document.getElementById("startBtn").addEventListener("click",()=>{
+  document.getElementById("music").play();
+  next(1);
+});
+</script>
+
+</body>
+</html>
