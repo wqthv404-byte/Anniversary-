@@ -242,12 +242,18 @@ function celebrate(){
   document.getElementById("p3").classList.remove("active");
   document.getElementById("p4").classList.add("active");
 }
-
-/* Start button + music */
-document.getElementById("startBtn").addEventListener("click",()=>{
-  document.getElementById("music").play();
-  next(1);
+document.getElementById("startBtn").addEventListener("click", ()=>{
+    // Start music
+    const music = document.getElementById("music");
+    music.play().catch(()=>console.log("Tap to start audio"));
+    
+    // Hide first page
+    document.getElementById("p1").classList.remove("active");
+    
+    // Show second page
+    document.getElementById("p2").classList.add("active");
 });
+
 </script>
 
 </body>
