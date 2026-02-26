@@ -156,7 +156,7 @@ body{
 </div>
 
 <!-- PAGE 2 -->
-<div class="page" id="p2">
+<div class="page" id="p2" style="display: none;">
   <div class="heart"></div>
   <h2 class="glow">Two souls, one heart 💖</h2>
   <button onclick="next(2)">Next ➡</button>
@@ -252,13 +252,20 @@ function celebrate(){
   document.getElementById("p3").classList.remove("active");
   document.getElementById("p4").classList.add("active");
 }
+document.getElementById("startBtn").addEventListener("click", ()=>{
+    const music = document.getElementById("music");
+    music.play().catch(()=>console.log("Tap to start audio"));
 
-/* Start button + music + next page */
-document.getElementById("startBtn").addEventListener("click",()=>{
-  const music=document.getElementById("music");
-  music.play().catch(()=>console.log("Tap to start audio"));
-  next(1);
+    // Hide first page
+    document.getElementById("p1").style.display = "none";
+
+    // Show second page
+    document.getElementById("p2").style.display = "block";
+
+    // Optional: add class active for animations
+    document.getElementById("p2").classList.add("active");
 });
+
 </script>
 </body>
   </html>
