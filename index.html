@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary Aan & Esha! 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow:hidden;
+  text-align:center;
+  color:white;
+  background: radial-gradient(circle at center, #1a001f 0%, #000 100%);
+  height: 100vh;
+}
+
+/* Page Management */
+.page{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  opacity:0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  padding:20px;
+  box-sizing: border-box;
+}
+.active{
+  opacity:1; 
+  z-index:2;
+  pointer-events: all;
+}
+
+.glow{
+  text-shadow:0 0 10px pink, 0 0 30px hotpink;
+}
+
+/* 3D Slideshow - FIXED */
+.slider-container {
+  position: relative;
+  width: 150px;
+  height: 200px;
+  perspective: 1000px;
+  margin: 30px auto;
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  animation: rotate 12s infinite linear;
+}
+
+.slider div {
+  position: absolute;
+  width: 150px;
+  height: 200px;
+  border: 3px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #222; /* Placeholder color */
+}
+
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 3D Positions */
+.slider .p1 { transform: rotateY(0deg) translateZ(150px); }
+.slider .p2 { transform: rotateY(120deg) translateZ(150px); }
+.slider .p3 { transform: rotateY(240deg) translateZ(150px); }
+
+@keyframes rotate {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Buttons */
+button {
+  background: white;
+  color: #330033;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(255,105,180,0.4);
+  margin-top: 20px;
+}
+
+.typing {
+  font-size: 20px;
+  color: #ffccdd;
+  min-height: 1.5em;
+  margin: 20px;
+}
+
+/* Small hearts */
+.sheart {
+  position: absolute;
+  color: #ff66aa;
+  pointer-events: none;
+  animation: floatUp 4s linear forwards;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="page active" id="p1">
+  <h1 class="glow">Aan ❤️ Esha</h1>
+  <p>A beautiful journey of togetherness ✨</p>
+  <button onclick="startApp()">Open your Story 💖</button>
+</div>
+
+<div class="page" id="p2">
+  <h2 class="glow"> Your Beautiful Memories 📸</h2>
+  <div class="slider-container">
+    <div class="slider">
+      <div class="p1"><img src="pic1.jpg" alt="Photo 1"></div>
+      <div class="p2"><img src="pic2.jpg" alt="Photo 2"></div>
+      <div class="p3"><img src="pic3.jpg" alt="Photo 3"></div>
+    </div>
+  </div>
+  <p>Every picture tells a story of love.</p>
+  <button onclick="changePage(2, 3)">Next ➡</button>
+</div>
+
+<div class="page" id="p3">
+  <h1 class="glow">Happy Anniversary! 🎈</h1>
+  <div class="typing" id="typing"></div>
+  <button id="finalBtn" style="display:none;" onclick="changePage(3, 4)">Final Surprise 🎁</button>
+</div>
+
+<div class="page" id="p4">
+  <h1 class="glow">forever together ♾️! 🎊</h1>
+  <p> Together is a beautiful place to be.Wishing you a day filled with love and joy.</p>
+  <button onclick="location.reload()">Restart ❤️</button>
+</div>
+
+<script>
+// Logic to handle page switching correctly
+function changePage(current, next) {
+  document.getElementById("p" + current).classList.remove("active");
+  document.getElementById("p" + next).classList.add("active");
+
+  if (next === 3) {
+    typeMsg("Wishing you both a lifetime of happiness, health, and beautiful memories together.Your story is beautiful and inspiring. May it continue to shine brightly. Happy Anniversary!", "typing");
+  }
+}
+
+function startApp() {
+  const music = document.getElementById("music");
+  music.play().catch(() => console.log("Audio play blocked until click"));
+  changePage(1, 2);
+  startHearts();
+}
+
+function typeMsg(text, id) {
+  let i = 0;
+  let el = document.getElementById(id);
+  el.textContent = "";
+  let t = setInterval(() => {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+    } else {
+      clearInterval(t);
+      document.getElementById('finalBtn').style.display = 'inline-block';
+    }
+  }, 60);
+}
+
+function startHearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "sheart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.top = "100vh";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 4000);
+  }, 400);
+}
+</script>
+</body>
+</html>
